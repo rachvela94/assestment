@@ -1,4 +1,6 @@
 ### Start project
+- Create and configure you .env file based on env.example
+  
 - run the command
 $ docker-compose up --build
   
@@ -7,9 +9,7 @@ $ docker exec -it your-container-name /bin/bash
 
 - Install composer packages
 $ composer install
-
-- Create and configure you .env file based on env.example
-
+  
 - Run database migrations:
 $ php artisan migrate
 
