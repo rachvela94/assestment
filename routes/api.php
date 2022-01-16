@@ -22,4 +22,14 @@ Route::get('/posts', 'PostsController@index');
 Route::get('/posts/{post}', 'PostsController@get');
 Route::post('/posts', 'PostsController@create');
 Route::put('/posts/{post}', 'PostsController@update');
+Route::patch('/posts/{post}', 'PostsController@upvote');
 Route::delete('/posts/{post}', 'PostsController@delete');
+
+Route::group(['prefix'=>'posts/{post}'], function () {
+    Route::get('/comments', 'PostCommentsController@index');
+    Route::get('/comments/{comment}', 'PostCommentsController@get');
+    Route::post('/comments', 'PostCommentsController@create');
+    Route::put('/comments/{comment}', 'PostCommentsController@update');
+    Route::patch('/comments/{comment}', 'PostCommentsController@upvote');
+    Route::delete('/comments/{comment}', 'PostCommentsController@delete');
+});

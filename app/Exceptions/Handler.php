@@ -3,6 +3,9 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -28,14 +31,17 @@ class Handler extends ExceptionHandler
     ];
 
     /**
-     * Register the exception handling callbacks for the application.
+     * Create a response object from the given validation exception.
      *
-     * @return void
+     * @param ValidationException $e
+     * @param  Request  $request
+     * @return Response
      */
-    public function register()
+    protected function convertValidationExceptionToResponse(ValidationException $e, $request): Response
     {
-        $this->reportable(function (Throwable $e) {
-            //
-        });
+        if ($e->response) {
+            return $e->response;
+        }
+        return $this->invalidJson($request, $e);
     }
 }

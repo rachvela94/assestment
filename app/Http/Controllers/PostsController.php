@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PostCreateRequest;
 use App\Http\Requests\PostUpdateRequest;
 use App\Models\Post;
+use http\Env\Response;
 use Illuminate\Http\JsonResponse;
 
 class PostsController extends Controller
@@ -17,12 +18,12 @@ class PostsController extends Controller
      */
     public function create(PostCreateRequest $request): JsonResponse
     {
-        Post::create([
+        $post =  Post::create([
             'title' => $request->getTitle(),
             'author_name' => $request->getAuthorName(),
             'url' => $request->getUrl(),
         ]);
-        return response()->json(['status' => 'ok'], 200);
+        return response()->json($post, 200);
     }
 
     /**
@@ -74,6 +75,18 @@ class PostsController extends Controller
     public function delete(Post $post): JsonResponse
     {
         $post->delete();
+        return response()->json(['status' => 'ok'], 200);
+    }
+
+    /**
+     * Upvote a post.
+     *
+     * @param Post $post
+     * @return JsonResponse
+     */
+    public function upvote(Post $post): JsonResponse
+    {
+        $post->increment('upvotes');
         return response()->json(['status' => 'ok'], 200);
     }
 }
