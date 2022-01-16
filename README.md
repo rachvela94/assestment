@@ -18,3 +18,6 @@ $ php artisan migrate
   
 -Heroku url for testing
 https://stormy-garden-21209.herokuapp.com/
+
+-Postman collection link
+https://www.postman.com/collections/936e00880ec66200ce4e
